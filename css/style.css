@@ -1,0 +1,452 @@
+/***** Master Styles *****/
+body {
+  margin: 5px 5%;
+  font-family: 'Rubik', helvetica, sans-serif;
+  background-color: #fff;
+  color: #333;
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  margin: 0 auto;
+  line-height: 1em;
+}
+
+p {
+  margin: 0;
+}
+
+#main-header {
+  text-align: center;
+}
+
+.site-header {
+  display: inline-block;
+}
+
+h1.site-title {
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1em;
+  padding: 20px 0;
+}
+
+.site-header-line {
+  width: 50%;
+  margin: 0 auto;
+  border-bottom: 6px solid black;
+  margin-bottom: 0px;
+}
+
+a.header-link {
+  text-decoration: none;
+  color: #333;
+  transition: ease .3s;
+}
+
+a.header-link:visited {
+  color: #333;
+}
+
+a.header-link:active:hover {
+  color: #f35029;
+}
+
+a.header-link:hover {
+  color: #f35029;
+}
+
+#navigation {
+  text-align: center;
+}
+
+.social-links {
+  display: inline-block;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  padding: 0;
+}
+
+.fa-github,
+.fa-twitter {
+  font-size: 22px;
+  padding: 0 3px;
+}
+
+.site-navigation {
+  text-align: center;
+  border-bottom: 6px solid black;
+  margin-bottom: 20px;
+}
+
+.list-wrapper {
+  margin-bottom: 18px;
+}
+
+div.social-links ul,
+nav.site-navigation ul {
+  margin: 0;
+  padding: 0;
+}
+
+div.social-links li,
+nav.site-navigation li {
+  display: inline-block;
+  list-style: none;
+}
+
+input[type=button]::-moz-focus-inner {
+  border: 0;
+}
+
+input[type=button]:focus {
+  background-color: #f35029;
+  color: #fff;
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  border: 2px solid #333;
+  background-color: #fff;
+  color: #333;
+  padding: 7px;
+  transition: ease .3s;
+}
+
+.btn:visited {
+  background-color: #fff;
+  color: #333;
+}
+
+.btn:active:hover {
+  background-color: #f35029;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: #f35029;
+  color: #fff;
+}
+
+#card-container {
+  width: 100%;
+  position: relative;
+  border-bottom: 6px solid black;
+}
+
+.card {
+  display: inline-block;
+  position: absolute;
+  padding: 10px;
+  border-bottom: 2px solid black;
+  color: #555;
+  font-size: 18px;
+  word-wrap: break-word;
+  transition: color ease .2s;
+  transition: background-color ease .2s;
+}
+
+.post-card-image img {
+  width: 100%;
+  height: auto;
+}
+
+.post-card-header {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+a.post-header-link {
+  text-decoration: none;
+  color: #000;
+  font-size: 24px;
+}
+
+a.post-header-link:visited {
+  color: #000;
+}
+
+a.post-header-link:active:hover {
+  text-decoration: underline;
+}
+
+a.post-header-link:hover {
+  text-decoration: underline;
+}
+
+.post-card-content {
+  margin-bottom: 30px;
+}
+
+.post-card-meta {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+a.tag-link {
+  text-decoration: none;
+  color: #f35029;
+}
+
+a.tag-link:visited {
+  color: #f35029;
+}
+
+a.tag-link:active:hover {
+  text-decoration: underline;
+}
+
+a.tag-link:hover {
+  text-decoration: underline;
+}
+
+form#subscribe-form {
+  margin: 30px auto;
+  margin-bottom: 40px;
+}
+
+.subscribe-caption {
+  margin-bottom: 15px;
+}
+
+div.subscribe-content {
+}
+
+label.email-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="email"] {
+  display: block;
+  border: 2px solid black;
+  padding: 11px;
+  margin-bottom: 10px;
+  max-width: 200px;
+}
+
+.subscribe-btn {
+  padding: 11px;
+  font-size: 16px;
+}
+
+
+/***** Post Page Styles *****/
+section#post-section {
+  border-bottom: 6px solid black;
+}
+
+article.post-container {
+  word-wrap: break-word;
+  padding-bottom: 30px;
+}
+
+header.post-header {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+h1.post-title {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+h2.title-h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+h3.title-h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+div.post-header-meta {
+  color: #f35029;
+}
+
+div.post-content {
+  font-size: 17px;
+}
+
+div.post-content p {
+  margin-bottom: 30px;
+}
+
+code {
+  margin-bottom: 30px;
+}
+
+pre.code-style {
+  font-size: 12px;
+
+}
+
+div.image-wrapper {
+  text-align: center;
+}
+
+div.image-wrapper img {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+a.link {
+  color: #f35029;
+}
+
+a.link:visited {
+  color: #f35029;
+}
+
+a.link:active:hover {
+  color: black;
+}
+
+a.link:hover {
+  color: black;
+}
+
+table.basic-table,
+table.basic-table th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+table.basic-table th, td {
+  min-width: 40px;
+  width: 100px;
+  text-align: center;
+}
+
+
+/***** About Me Page Styles *****/
+div.about-me {
+  padding-bottom: 30px;
+  margin-top: 30px;
+  border-bottom: 6px solid black;
+}
+
+header.about-me-header {
+  margin-bottom: 30px;
+}
+
+header.about-me-header h1 {
+  font-size: 28px;
+}
+
+div.about-me p {
+  margin-bottom: 30px;
+}
+
+
+/*****   Media Rules   *****/
+@media(min-width: 640px) {
+  #card-container {
+    box-sizing: border-box;
+  }
+
+  .card {
+    width: 50%;
+    margin: 0 -2px;
+    padding: 30px;
+    vertical-align: top;
+    box-sizing: inherit;
+    border: none;
+  }
+
+  .card:hover {
+    background-color: #f35029;
+    color: #fff;
+  }
+
+  .card:hover a.post-header-link {
+    color: #fff;
+  }
+
+  .card:hover a.post-header-link:visited {
+    color: #fff;
+  }
+
+  .card:hover a.post-header-link:active:hover {
+    text-decoration: underline;
+  }
+
+  .card:hover a.post-header-link:hover {
+    text-decoration: underline;
+  }
+
+  .card:hover a.tag-link {
+    color: #fff;
+  }
+
+  .card:hover a.tag-link:visited {
+    color: #fff;
+  }
+
+  .card:hover a.tag-link:active:hover {
+    text-decoration: underline;
+  }
+
+  .card:hover a.tag-link:hover {
+    text-decoration: underline;
+  }
+
+  pre.code-style {
+    font-size: 16px;
+  }
+}
+
+@media(min-width: 960px) {
+  .card {
+    width: 33.3333333333%;
+  }
+
+  article.post-container {
+    margin-left: 33.3333333333%;
+  }
+
+  header.post-header {
+    margin-top: 50px;
+  }
+
+  h1.post-title {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+
+  div.about-me {
+    padding-bottom: 50px;
+    margin-top: 70px;
+  }
+
+  header.about-me-header {
+    margin: 0 auto;
+    margin-bottom: 40px;
+    width: 50%;
+  }
+
+  header.about-me-header h1 {
+    font-size: 36px;
+  }
+
+  div.about-me p {
+    margin: 0 auto;
+    width: 50%;
+    margin-bottom: 30px;
+  }
+
+  form#subscribe-form {
+    width: 40%;
+    margin: 50px auto;
+    margin-bottom: 60px;
+  }
+}

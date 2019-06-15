@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121904692-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-121904692-1');
+    </script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Matris Çarpımı: Strassen Algoritması ve Analizi</title>
+    <meta name="description" content="Matris Çarpımı: Strassen algoritmasının
+      analizi ve java kodu.">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:400">
+    <link rel="stylesheet" href="/libraries/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/libraries/prism/prism.css">
+  </head>
+  <body>
+    <!-- main header start -->
+    <header id="main-header">
+      <div class="site-header">
+        <h1 class="site-title">
+          <a href="/" class="header-link">No Brain Exception</a>
+        </h1>
+        <div class="site-header-line"></div>
+      </div>
+    </header>
+    <!-- main header end -->
+
+    <!-- navigation and social links start -->
+    <section id="navigation">
+      <div class="social-links">
+        <ul>
+          <li>
+            <a href="https://github.com/mlhtnc" class="header-link"><i class="fab fa-github"></i></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/mlhtncc" class="header-link"><i class="fab fa-twitter"></i></a>
+          </li>
+        </ul>
+      </div>
+      <nav class="site-navigation">
+        <div class="list-wrapper">
+          <ul>
+            <li>
+              <a href="/" class="btn">Home</a>
+            </li>
+            <li>
+              <a href="/about-me.html" class="btn">About Me</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+    <!-- navigation and social links end -->
+
+    <section id="post-section">
+      <article class="post-container">
+        <header class="post-header">
+          <h1 class="post-title">Matris Çarpımı: Strassen Algoritması ve Analizi</h1>
+          <div class="post-header-meta">
+            <p>28.07.2018</p>
+          </div>
+        </header>
+        <div class="post-content">
+          <p>
+    				<a href="https://en.wikipedia.org/wiki/Strassen_algorithm" class="link">Strassen algoritması</a>
+    				iki matrisin çarpımını daha az çarpma işlemi yaparak, zaman
+    				karmaşasını azaltmak için tasarlanmış bir algoritmadır. Matris çarpımları
+    				özellikle Bilgisayar Grafikleri'nde (Computer Graphics) önemli bir yer
+    				tutar çünkü objeleri döndürmek, yeniden boyutlandırmak, pozisyonlarını
+    				değiştirmek gibi işlemler matrisler ile yapılır.
+          </p>
+          <div class="image-wrapper">
+            <img
+            	alt="Görsel"
+            	src="/images/pexels-photo-1089438.jpeg"
+              style="max-width: 640px;">
+            </img>
+          </div>
+          <p>
+            Strassen algoritmasına
+            geçmeden önce iteratif <i>(naive method)</i> ve rekürsif
+            <i>(divide and conquer)</i> olmak üzere iki algoritma ile matris
+            çarpımını nasıl bulabiliriz bir bakalım.
+          </p>
+
+          <h2 class="title-h2">Naif Yöntem (Naive Method)</h2>
+    			<pre class="line-numbers code-style"><code style="height: 300px" class="language-java">
+    				public static float[][] naiveMult(float[][] M1, float[][] M2)
+    				{
+    				    // Matris çarpımının tutulacağı matris.
+    				    float[][] mult = new float[M1.length][M2[0].length];
+
+    				    for(int i = 0; i < M1.length; i++)
+    				    {
+    				        for(int j = 0; j < M2[0].length; j++)
+    				        {
+    				            for(int k = 0; k < M2.length; k++)
+    				            {
+    				                // M1'in i. satırı ve M2'nin j. sütununun
+    				                // çarpımından elde edilen toplam.
+    				                mult[i][j] += M1[i][k] * M2[k][j];
+    				            }
+    				        }
+    				    }
+
+    				    return mult;
+    				}
+    			</code></pre>
+          <p>
+            Öncelikle elimizde n x n boyutlarında iki matrisin olduğunu varsayalım.
+            Algoritma, 3 döngüden oluşmaktadır ve her bir döngü n kadar dönmektedir.
+            Bu da algoritmanın karmaşasının	O(n<sup>3</sup>) olduğunu gösterir.
+          </p>
+
+          <h2 class="title-h2">Böl ve Fethet (Divide and Conquer)</h2>
+    			<p>
+    				Böl ve fethet algoritmaları bir problemi benzer alt problemlere
+    				indirgeyerek problemi kolayca çözülebilecek temel bir adıma götürür.
+    				Bu sayede rekürsif olarak problemi çözebiliriz. Peki iki matrisin
+    				çarpımını rekürsif olarak nasıl ifade edebiliriz? Bunu iki adımla
+    				şöyle tanımlayabiliriz:
+    				<ol style="padding-left: 7%;">
+    					<li>A ve B matrislerini N/2 x N/2 boyutlarında 4 alt matrise böl.</li>
+    					<li>Rekürsif olarak ae + bg, af + bh, ce + dg ve cf + dh -yi hesapla.</li>
+    				</ol>
+    			</p>
+          <div class="image-wrapper">
+            <img
+            	alt="Matris çarpımı gösterimi"
+            	src="/images/strassen-algorithm-1.png"
+              style="max-width: 512px; margin-bottom: 0px; margin-top: 0px">
+            </img>
+          </div>
+          <p>
+          	Yukarıdaki şekildende görülebileceği gibi A ve B matrislerinin her bir
+          	alt matrisinin çarpımları bize C matrisini verir. Bu aslında iki matrisi
+          	çarpmaya benzer fakat burada dikkat edilecek husus a, b, c, d, e, f, g
+          	ve h -nin birer birer matris olduğudur. Bunu kağıt kalemle deneyip
+          	doğrulamanız daha iyi anlamanızı sağlayacaktır. Şimdi bu algoritmayı koda
+          	nasıl dökeriz bir bakalım.
+          </p>
+    			<pre class="line-numbers code-style"><code style="height: 500px" class="language-java">
+    				public static float[][] divideAndConquerMult(float[][] m1, float[][] m2)
+    				{
+    				    // Bu yöntemi uygulayabilmek için matrislerin 2^n x 2^n boyutlarında olması
+    				    // gerekli. Eğer değillerse matrisleri en küçük 2^n x 2^n boyutunda birer
+    				    // matrise dönüştürmemiz gerekli. Bunu dolgulama (padding) ile kolayca
+    				    // yapabiliriz.
+
+    				    //  2x3-lük bir matris 0 ile dolgulanarak 4x4 lük bir matris haline
+    				    //  getirilmiştir.
+    				    //
+    				    //                             [ 2  3  4  0 ]
+    				    //      [ 2  3  4 ]    ===>    [ 1  5  7  0 ]
+    				    //      [ 1  5  7 ]    ===>    [ 0  0  0  0 ]
+    				    //                             [ 0  0  0  0 ]
+    				    //
+    				    //  Matrisin sıfırlarla doldurulması çarpma işleminin sonucu etkilememektedir.
+
+    				    // getPadSize, dolgulama sonrası matrisin boyutunun ne olacağını döndürür.
+    				    int n = getPadSize(m1, m2);
+    				    float[][] M1 = addPadding(m1, n);
+    				    float[][] M2 = addPadding(m2, n);
+    				    float[][] R = new float[n][n];
+
+    				    // Temel adım: Eğer n == 1 ise 1x1-lik iki matrisi çarparız.
+    				    if(n == 1)
+    				    {
+    				        R[0][0] = M1[0][0] * M2[0][0];
+    				        return R;
+    				    }
+
+    				    int nd2 = n / 2;
+
+    				    float[][] A = new float[nd2][nd2];
+    				    float[][] B = new float[nd2][nd2];
+    				    float[][] C = new float[nd2][nd2];
+    				    float[][] D = new float[nd2][nd2];
+    				    float[][] E = new float[nd2][nd2];
+    				    float[][] F = new float[nd2][nd2];
+    				    float[][] G = new float[nd2][nd2];
+    				    float[][] H = new float[nd2][nd2];
+
+    				    // İlk matrisi alt matrislere böl.
+    				    split(M1, A, 0, 0);
+    				    split(M1, B, 0, nd2);
+    				    split(M1, C, nd2, 0);
+    				    split(M1, D, nd2, nd2);
+
+    				    // İkinci matrisi alt matrislere böl.
+    				    split(M2, E, 0, 0);
+    				    split(M2, F, 0, nd2);
+    				    split(M2, G, nd2, 0);
+    				    split(M2, H, nd2, nd2);
+
+    				    /*
+    				        R11 = AE + BG
+    				        R12 = AF + BH
+    				        R21 = CE + DG
+    				        R22 = CF + DH
+    				    */
+
+    				    float[][] R11 = add(divideAndConquerMult(A, E), divideAndConquerMult(B, G));
+    				    float[][] R12 = add(divideAndConquerMult(A, F), divideAndConquerMult(B, H));
+    				    float[][] R21 = add(divideAndConquerMult(C, E), divideAndConquerMult(D, G));
+    				    float[][] R22 = add(divideAndConquerMult(C, F), divideAndConquerMult(D, H));
+
+    				    // Hesaplanan alt matrisleri birleştir.
+    				    merge(R, R11, 0, 0);
+    				    merge(R, R12, 0, nd2);
+    				    merge(R, R21, nd2, 0);
+    				    merge(R, R22, nd2, nd2);
+
+    				    // En sonunda dolguyu kaldırmamız gerekli.
+    				    R = removePadding(R, m1.length, m2[0].length);
+
+    				    return R;
+    				}
+    			</code></pre>
+
+          <p>
+            Yukarıdaki algoritmada her bir alt matrisin hesaplanması için 8 çarpma
+    				ve 4 toplama işlemi yapılıyor. İki matrisi O(n<sup>2</sup>) zamanda
+    				toplayabiliriz. Bu durumda karmaşıklığı şöyle ifade edebiliriz:
+          </p>
+          <div style="display: block; margin: 15px 20px;">
+          	T(N) = 8T(N/2) + O(N<sup>2</sup>)
+          </div>
+          <p>
+            <a href="https://en.wikipedia.org/wiki/Master_theorem" class="link">Master Teoremine</a>
+    				göre yukarıdaki karmaşıklık O(n<sup>3</sup>)'tür. Bu da bize en baştaki iteratif
+    				yöntemden daha iyisini yapamadığımızı gösterir.
+          </p>
+
+          <h2 class="title-h2">Strassen'in Algoritması</h2>
+          <p>
+            Yukaridaki böl ve fethet algoritmasında her bir alt matrisi hesaplayabilmek
+    				için 8 rekürsif çağrı yapıyoruz. Strassen'in fikri bu rekürsif çağrıları
+    				7'ye düşürmekti. Strassen algoritmasında alt matrislerin nasıl hesaplandığını
+    				aşağıdaki şekilden inceyebilirsiniz.
+          </p>
+          <div class="image-wrapper">
+            <img
+            	alt="Matris çarpımı gösterimi"
+            	src="/images/strassen-algorithm-2.png"
+              style="max-width: 650px; margin-bottom: 20px">
+            </img>
+          </div>
+          <p>
+            Yukarıdaki şekildende anlaşılabileceği gibi p1, p2, p3, p4, p5, p6 ve p7
+    				birer N/2 x N/2 -lik matrislerdir. Burada her alt matrisi hesaplarken
+    				7 çarpma işlemi yapıyoruz. Bu da daha az rekürsif çağrı yapacağımız
+    				anlamına gelir. Toplama ve çıkarma işlemleri ise yine O(n<sup>2</sup>)
+    				zamanda yapılabilir. Elimizdeki bu bilgilere dayanarak Strassen
+    				algoritmasının zaman karmaşasını şu şekilde yazabiliriz:
+          </p>
+          <div style="display: block; margin: 15px 20px;">
+          	T(N) = 7T(N/2) + O(N<sup>2</sup>)
+          </div>
+          <p>
+            Master Teoremine göre yukarıdaki karmaşıklık O(n<sup>log<sub>2</sub>7</sup>)'dir.
+            Bu da yaklaşık olarak O(n<sup>2.8</sup>)'dir.
+          </p>
+    			<pre class="line-numbers code-style"><code style="height: 500px" class="language-java">
+    				public static float[][] strassenMult(float[][] m1, float[][] m2)
+    				{
+    				    // Böl ve fethet algoritmasında yaptığımız gibi burada da matris
+    				    // boyutları 2^n x 2^n değilse dolgulama yapmamız gerekli.
+
+    				    int n = getPadSize(m1, m2);
+    				    float[][] M1 = addPadding(m1, n);
+    				    float[][] M2 = addPadding(m2, n);
+    				    float[][] R = new float[n][n];
+
+    				    if(n == 1)
+    				    {
+    				        R[0][0] = M1[0][0] * M2[0][0];
+    				        return R;
+    				    }
+
+    				    int nd2 = n / 2;
+
+    				    float[][] A = new float[nd2][nd2];
+    				    float[][] B = new float[nd2][nd2];
+    				    float[][] C = new float[nd2][nd2];
+    				    float[][] D = new float[nd2][nd2];
+    				    float[][] E = new float[nd2][nd2];
+    				    float[][] F = new float[nd2][nd2];
+    				    float[][] G = new float[nd2][nd2];
+    				    float[][] H = new float[nd2][nd2];
+
+    				    // İlk matrisi alt matrislere böl.
+    				    split(M1, A, 0, 0);
+    				    split(M1, B, 0, nd2);
+    				    split(M1, C, nd2, 0);
+    				    split(M1, D, nd2, nd2);
+
+    				    // İkinci matrisi alt matrislere böl.
+    				    split(M2, E, 0, 0);
+    				    split(M2, F, 0, nd2);
+    				    split(M2, G, nd2, 0);
+    				    split(M2, H, nd2, nd2);
+
+    				    /*  Strassen'in formülü
+    				        P1 = A * (F - H)
+    				        P2 = (A + B) * H
+    				        P3 = (C + D) * E
+    				        P4 = D * (G - E)
+    				        P5 = (A + D) * (E + H)
+    				        P6 = (B - D) * (G + H)
+    				        P7 = (A - C) * (E + F)
+    				    */
+
+    				    float[][] P1 = strassenMult(A, sub(F, H));
+    				    float[][] P2 = strassenMult(add(A, B), H);
+    				    float[][] P3 = strassenMult(add(C, D), E);
+    				    float[][] P4 = strassenMult(D, sub(G, E));
+    				    float[][] P5 = strassenMult(add(A, D), add(E, H));
+    				    float[][] P6 = strassenMult(sub(B, D), add(G, H));
+    				    float[][] P7 = strassenMult(sub(A, C), add(E, F));
+
+    				    /*  Strassen'in formülü
+    				        R11 = P5 + P4 - P2 + P6
+    				        R12 = P1 + P2
+    				        R21 = P3 + P4
+    				        R22 = P1 + P5 - P3 - P7
+    				    */
+
+    				    float[][] R11 = add(sub(add(P5, P4), P2), P6);
+    				    float[][] R12 = add(P1, P2);
+    				    float[][] R21 = add(P3, P4);
+    				    float[][] R22 = sub(sub(add(P1, P5), P3), P7);
+
+    				    // Alt matrisleri birleştir.
+    				    merge(R, R11, 0, 0);
+    				    merge(R, R12, 0, nd2);
+    				    merge(R, R21, nd2, 0);
+    				    merge(R, R22, nd2, nd2);
+
+    				    R = removePadding(R, m1.length, m2[0].length);
+
+    				    return R;
+    				}
+    			</code></pre>
+          <p>
+            Gördüğünüz gibi Strassen algoritması, böl ve fethet algoritmasıyla aynı.
+            Değişen tek şey alt matrislerin nasıl hesaplandığı. Daha önce 8 çarpma
+            yapıyorduk, Strassen algoritmasında ise 7 çarpma yapıyoruz. Bu sayede
+            daha az rekürsif çağrı yapmış oluyoruz. Bu da zaman karmaşasını
+            <span style="white-space: nowrap">O(n<sup>3</sup>)'ten</span>
+            <span style="white-space: nowrap">O(n<sup>2.8</sup>)'e</span> düşürüyor.
+          </p>
+
+          <h3 class="title-h3">Sonuç</h3>
+          <p>
+            Sonuç olarak Strassen algoritmasının zaman karmaşıklığı diğer
+            algoritmalara göre daha iyidir fakat pratikte işler pekte öyle değildir.
+            Bunun bazı sebepleri şöyledir:
+            <ul style="padding-left: 7%;">
+            	<li>Strassen algoritmasında yapılan sabit işlemler naive metotda yapılana
+            	göre daha fazladır.</li>
+            	<li>Her rekürsif çağrıda alt matrislerin oluşturulması zaman
+            		ve bellek açısından ekstra bir yüktür.</li>
+            </ul>
+            Yukarıdaki kodların tamamını
+            <a href="https://github.com/mlhtnc/algorithms/blob/master/strassen-algorithm/Strassen.java"
+              class="link">github'da</a> bulabilirsiniz.
+          </p>
+          <h3 class="title-h3">Kaynaklar</h3>
+          <p>
+            <a href="https://www.geeksforgeeks.org/strassens-matrix-multiplication/" class="link">
+            	GeeksforGeeks - Strassens Matrix Multiplication
+            </a>
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- subscribe start-->
+    <section>
+      <form id="subscribe-form">
+        <div class="subscribe-caption">
+          <p>Leave your email to receive notifications for new posts.</p>
+        </div>
+        <div class="subscribe-content">
+          <label class="email-label">Email * </label>
+          <input type="email" name="email" value="">
+          <input class="btn subscribe-btn" type="button" name="subscribe-email"
+            value="Subscribe">
+        </div>
+      </form>
+    </section>
+    <!-- subscribe end -->
+
+    <script src="/libraries/prism/prism.js"></script>
+  </body>
+</html>

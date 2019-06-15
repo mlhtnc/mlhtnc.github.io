@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121904692-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-121904692-1');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KNN (k-nearest neighbours, k-en yakın komşu) Algoritması</title>
+    <meta name="description" content="KNN algoritması sınıflandırılmak istenen bir veriyi daha önceki verilerle olan
+      yakınlık ilişkisine göre sınıflandıran bir algoritmadır.">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:400">
+    <link rel="stylesheet" href="/libraries/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <!-- main header start -->
+    <header id="main-header">
+      <div class="site-header">
+        <h1 class="site-title">
+          <a href="/" class="header-link">No Brain Exception</a>
+        </h1>
+        <div class="site-header-line"></div>
+      </div>
+    </header>
+    <!-- main header end -->
+
+    <!-- navigation and social links start -->
+    <section id="navigation">
+      <div class="social-links">
+        <ul>
+          <li>
+            <a href="https://github.com/mlhtnc" class="header-link"><i class="fab fa-github"></i></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/mlhtncc" class="header-link"><i class="fab fa-twitter"></i></a>
+          </li>
+        </ul>
+      </div>
+      <nav class="site-navigation">
+        <div class="list-wrapper">
+          <ul>
+            <li>
+              <a href="/" class="btn">Home</a>
+            </li>
+            <li>
+              <a href="/about-me.html" class="btn">About Me</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+    <!-- navigation and social links end -->
+
+    <section id="post-section">
+      <article class="post-container">
+        <header class="post-header">
+          <h1 class="post-title">KNN (k-nearest neighbours, k-en yakın komşu) Algoritması</h1>
+          <div class="post-header-meta">
+            <p>05.09.2018</p>
+          </div>
+        </header>
+        <div class="post-content">
+          <p>
+            KNN algoritması sınıflandırılmak istenen bir veriyi daha önceki verilerle olan
+            yakınlık ilişkisine göre sınıflandıran bir algoritmadır.
+          </p>
+          <div class="image-wrapper">
+            <img
+            	alt="Görsel"
+            	src="/images/hello_neighbor_625x250.jpg"
+              style="max-width: 625px;">
+            </img>
+          </div>
+          <p>
+            Örneğin; k = 3 olarak alırsak, yeni gelen verinin eski verilere olan
+            uzaklıkları ölçülür ve en yakın 3 tanesi belirlenir. Aşağıdaki
+            şekilde görüldüğü gibi en yakın verilerden 2'si A sınıfında ve 1'i
+            B sınıfındadır. Bu durumda algoritma yeni gelen verinin A sınıfında
+            olduğuna karar verir.
+          </p>
+          <div class="image-wrapper">
+            <img
+            	alt="Görsel"
+            	src="/images/knn.png"
+              style="max-width: 424px;">
+            </img>
+          </div>
+          <p>
+            Şimdi bunu bir sayısal örnekle inceleyelim. Aşağıdaki tablodaki verilerin
+            daha önceden elimizde olduğunu varsayalım. Eğer bu durumda elimize
+            yeni bir veri geçerse KNN algoritmasını kullanarak yeni gelen veriyi
+            sınıflandırabiliriz. Örnek olarak yeni gelen verinin (5,5) noktası
+            (şekildeki kırmızı nokta) olduğunu varsayalım. (5,5) noktasına en
+            yakın 3 verinin sınıfları sıralıysa B, A, A'dır. Bu durumda (5,5)
+            noktasının sınıfı A olur.
+          </p>
+
+          <table class="basic-table">
+            <tr>
+              <th>x</th>
+              <th>y</th>
+              <th>Uzaklık</th>
+              <th>Sınıf</th>
+              <th>Sıra</th>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>5</td>
+              <td>1</td>
+              <td>B</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>5</td>
+              <td>2</td>
+              <td>A</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>7</td>
+              <td>2.24</td>
+              <td>A</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>2</td>
+              <td>3</td>
+              <td>B</td>
+              <td>5</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>7</td>
+              <td>2.83</td>
+              <td>B</td>
+              <td>4</td>
+            </tr>
+          </table>
+          <p>
+          	Şimdiye kadar uzaklık ölçümü için
+            <a class="link" href="https://en.wikipedia.org/wiki/Euclidean_distance">Öklid Uzaklığı</a>
+            (Euclidean Distance) kullanılmıştır. Bunun yanı sıra
+            <a class="link" href="http://computervision.wikia.com/wiki/Manhattan_distance">Manhattan</a> ve
+            <a class="link" href="https://en.wikipedia.org/wiki/Minkowski_distance">Minkowski</a>
+            uzaklıklarıda kullanılabilir. Fakat biz bu yazımızda bu uzaklıkların nasıl
+            ölçüldüğüne değinmeyeceğiz. İsteyenler linklerde daha fazla bilgi alabilirler.
+          </p>
+
+
+          <h2 class="title-h2">K Değişkeninin Seçilmesi</h2>
+          <p>
+            K değişkeni için sabit bir değer yoktur. Bu yüzden farklı k değerleri deneyip
+            optimal bir k değerinin bulunması daha iyi sonuç verecektir.
+            Şimdi buna örnek olarak yukarıda verdiğimiz k değerini 5 yapalım ve
+            sınıflandırmada farkeden bir şey olup olmadığına bakalım.
+          </p>
+          <div class="image-wrapper">
+            <img
+            	alt="Görsel"
+            	src="/images/knn.png"
+              style="max-width: 424px;">
+            </img>
+          </div>
+          <p>
+            K'yı 5 olarak seçtiğimizde bu sefer en yakın 5 komşuyu değerlendirmeye alacağız.
+            Yukarıdaki tablodan sırasıyla en yakın 5 komşunun sınıfları
+            B, A, A, B, B'dir. 2 tane A sınıfı ve 3 tane B sınıfı. Bu durumda
+            (5,5) noktası B sınıfına aittir.
+          </p>
+          <p>
+            Görüldüğü gibi k değerinin değişmesi sınıflandırmayı etkilemiştir.
+            Bu yüzden farklı k değerleriyle sınıflandırma yapıp en iyi sonucu
+            veren değeri seçmemiz gerekir.
+          </p>
+
+          <h3 class="title-h3">Sonuç</h3>
+          <p>
+            Sonuç olarak KNN algoritmasını temel olarak anlamaya çalıştık.
+            Herhangi bir kod paylaşmadım çünkü yukarıda gördüğünüz gibi algoritma
+            oldukça basit.
+          </p>
+
+          <h3 class="title-h3">Kaynaklar</h3>
+          <p>
+            Veri Madenciği Yöntemleri - Dr. Yalçın Özkan
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- subscribe start-->
+    <section>
+      <form id="subscribe-form">
+        <div class="subscribe-caption">
+          <p>Leave your email to receive notifications for new posts.</p>
+        </div>
+        <div class="subscribe-content">
+          <label class="email-label">Email * </label>
+          <input type="email" name="email" value="">
+          <input class="btn subscribe-btn" type="button" name="subscribe-email"
+            value="Subscribe">
+        </div>
+      </form>
+    </section>
+    <!-- subscribe end -->
+  </body>
+</html>
